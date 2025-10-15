@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Hero from "@/components/Hero";
+import AnimatedSection from "@/components/AnimatedSection";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -29,10 +30,11 @@ const Careers = () => {
         title="SHAPE THE FUTURE WITH SRIA BIOENERGY"
         subtitle="We believe that our greatest strength is the talented and dedicated people of SRIA BIOENERGY. Our diverse workforce brings exceptional expertise to deliver biomass solutions worldwide. When you join us, you become part of a company that values your contributions, supports your growth, and empowers you to make a real impact."
         backgroundImage={heroImage}
+        classHeight="h-[80vh]"
       />
 
       {/* Why Join Us */}
-      <section className="py-20">
+      <AnimatedSection className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-12"
@@ -64,7 +66,7 @@ const Careers = () => {
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Job Listings */}
       <section className="py-20 bg-muted">

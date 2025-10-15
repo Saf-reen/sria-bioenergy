@@ -10,31 +10,36 @@ All colors MUST be HSL.
   :root {
     /* SRIA BIOENERGY Design System - Biomass Industrial Theme */
     
-    /* Base colors - Forest green and earth tones */
-    --background: 0 0% 100%;
-    --foreground: 150 15% 15%;
-    
-    /* Brand colors - Deep forest green inspired by biomass/nature */
-    --primary: 150 45% 25%;
-    --primary-foreground: 0 0% 100%;
-    --primary-light: 150 40% 35%;
-    --primary-dark: 150 50% 18%;
+  /* Semantic color mapping based on provided palette */
+  /* Background: antique-white (#F8EBE0) */
+  --background: 28 63% 92%;
+  /* Foreground (main text): dark-slate-gray-deep (#062E28) */
+  --foreground: 171 77% 10%;
+
+  /* Brand colors mapped to dark-slate-gray (#193E39) */
+  --primary: 172 43% 17%;
+  --primary-foreground: 0 0% 100%;
+  --primary-light: 172 43% 22%;
+  --primary-dark: 171 77% 10%;
     
     /* Secondary - Warm earth/wood tones */
     --secondary: 30 25% 45%;
     --secondary-foreground: 0 0% 100%;
     --secondary-light: 30 30% 55%;
     
-    /* Accent - Bright green for sustainability highlights */
-    --accent: 120 50% 45%;
-    --accent-foreground: 0 0% 100%;
+  /* Accent - subtle lavender for hero/accents (#E5E7EB) */
+  --accent: 216 13% 91%;
+  --accent-foreground: 171 77% 10%;
     
     /* Neutral palette */
-    --muted: 150 10% 95%;
-    --muted-foreground: 150 10% 40%;
+  /* Muted / UI color - replaced with white per request */
+  --muted: 0 0% 100%; /* white (replaces previous light-gray) */
+  /* Keep muted-foreground readable by using main foreground color */
+  --muted-foreground: 171 77% 10%; /* same as --foreground (dark) */
     
-    --card: 0 0% 100%;
-    --card-foreground: 150 15% 15%;
+  /* Card background - keep white for contrast */
+  --card: 0 0% 100%;
+  --card-foreground: 171 77% 10%;
     
     --popover: 0 0% 100%;
     --popover-foreground: 150 15% 15%;
@@ -64,6 +69,18 @@ All colors MUST be HSL.
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* User color palette variables (from provided hex values, converted to HSL) */
+  :root {
+    --dark-slate-gray: 172 43% 17%; /* #193E39 */
+    --dark-slate-gray-deep: 171 77% 10%; /* #062E28 (deeper) */
+    /* Gray tones replaced with white */
+    --dark-gray: 0 0% 100%; /* white (replaces previous dark-gray) */
+    --light-gray: 0 0% 100%; /* white (replaces previous light-gray) */
+    --lavender: 216 13% 91%; /* #E5E7EB */
+    --gainsboro: 29 31% 87%; /* #E8DDD3 */
+    --antique-white: 28 63% 92%; /* #F8EBE0 */
   }
   
   .dark {
@@ -95,6 +112,18 @@ All colors MUST be HSL.
     --input: 150 10% 20%;
     --ring: 150 40% 35%;
   }
+
+  /* Utility classes for the supplied palette */
+  .text-dark-slate-gray { color: hsl(var(--dark-slate-gray)); }
+  .text-dark-slate-gray-deep { color: hsl(var(--dark-slate-gray-deep)); }
+  .text-dark-gray { color: hsl(var(--dark-gray)); }
+  .text-light-gray { color: hsl(var(--light-gray)); }
+  .text-lavender { color: hsl(var(--lavender)); }
+  .text-gainsboro { color: hsl(var(--gainsboro)); }
+  .text-antique-white { color: hsl(var(--antique-white)); }
+
+  .bg-antique-white { background-color: hsl(var(--antique-white)); }
+  .bg-gainsboro { background-color: hsl(var(--gainsboro)); }
 }
 
 @layer base {
@@ -205,4 +234,23 @@ All colors MUST be HSL.
       transition-duration: 0.01ms !important;
     }
   }
+
+  /* SectionStack helper: panel wrapper and slight negative margin stacking */
+  .section-stack-panel {
+    position: relative;
+    z-index: 10;
+    transition: transform 500ms var(--transition-smooth), box-shadow 400ms;
+  }
+
+  .section-stack-panel:where(*) {
+    will-change: transform, opacity;
+  }
+
+  .section-stack-panel + .section-stack-panel {
+    margin-top: -4rem;
+  }
+
+  /* Utility to hide scrollbars (cross-browser) */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }

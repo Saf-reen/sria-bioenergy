@@ -5,6 +5,7 @@ import { products } from "@/data/mockData";
 import heroImage from "@/assets/hero-biomass.jpg";
 import { FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const Products = () => {
   return (
@@ -13,14 +14,15 @@ const Products = () => {
         title="OUR PRODUCTS"
         subtitle="SRIA BIOENERGY caters to a broad spectrum of clients, from large-scale producers, utilities, and industrial customers to smaller regional producers and distributors. Our diverse portfolio includes both industrial and premium-grade wood pellets and alternative biomass solutions."
         backgroundImage={heroImage}
+        classHeight="h-[80vh]"
       />
 
       {/* Products Grid */}
-      <section className="py-20">
+      <AnimatedSection className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {products.map((product, index) => (
-              <ProductCard key={product.id} product={product} index={index} />
+              <ProductCard key={product.id} product={product} index={index} size="sm" />
             ))}
           </div>
 
@@ -96,7 +98,7 @@ const Products = () => {
             </Button>
           </motion.div>
         </div>
-      </section>
+      </AnimatedSection>
     </div>
   );
 };

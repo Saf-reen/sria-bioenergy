@@ -9,11 +9,12 @@ interface HeroProps {
   backgroundImage: string;
   primaryCTA?: { text: string; href: string };
   secondaryCTA?: { text: string; href: string };
+  classHeight?: string;
 }
 
-const Hero = ({ title, subtitle, backgroundImage, primaryCTA, secondaryCTA }: HeroProps) => {
+const Hero = ({ title, subtitle, backgroundImage, primaryCTA, secondaryCTA, classHeight }: HeroProps) => {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className={`relative ${classHeight} flex items-center justify-center overflow-hidden`}>
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -73,7 +74,7 @@ const Hero = ({ title, subtitle, backgroundImage, primaryCTA, secondaryCTA }: He
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
+      {/* <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -82,7 +83,7 @@ const Hero = ({ title, subtitle, backgroundImage, primaryCTA, secondaryCTA }: He
         <div className="w-6 h-10 border-2 border-primary-foreground rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-3 bg-primary-foreground rounded-full" />
         </div>
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 };

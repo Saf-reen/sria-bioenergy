@@ -1,63 +1,55 @@
 import { motion } from "framer-motion";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import biomassImage from "@/assets/biomass-pellets.jpg";
+import { ArrowRight } from "lucide-react";
 
-interface ProductCardProps {
-  product: {
-    id: number;
-    name: string;
-    category: string;
-    description: string;
-    specs: Record<string, string>;
-  };
-  index: number;
+interface Product {
+  id: number;
+  name: string;
+  category?: string;
+  description?: string;
+  specs?: Record<string, string>;
+  image?: string;
 }
 
-const ProductCard = ({ product, index }: ProductCardProps) => {
+interface ProductCardProps {
+  product: Product;
+  index?: number;
+  size?: "sm" | "md";
+}
+
+const ProductCard = ({ product, index = 0, size = "md" }: ProductCardProps) => {
+  const imgSrc = product.image || biomassImage;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.06 }}
     >
-      <Card className="h-full hover-lift cursor-pointer group overflow-hidden">
-        <div className="aspect-video overflow-hidden">
-          <img
-            src={biomassImage}
-            alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          />
+      <div className={`group relative rounded-2xl overflow-hidden bg-transparent h-full ${size === "sm" ? "max-w-xs mx-auto" : ""}`}>
+        <Link to={`/products/${product.id}`} className="block">
+          <div className={`${size === "sm" ? "aspect-[4/5]" : "aspect-[3/4]"} w-full overflow-hidden rounded-2xl bg-muted`}>
+            <img
+              src={imgSrc}
+              alt={product.name}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+        </Link>
+
+        {/* Footer: name + circle arrow */}
+        <div className="flex items-center justify-between mt-4 px-2">
+          <Link to={`/products/${product.id}`} className="text-center w-full">
+            <div className="text-sm md:text-base text-muted-foreground">{product.name}</div>
+          </Link>
+
+          <Link to={`/products/${product.id}`} className="ml-4 inline-flex items-center justify-center w-9 h-9 rounded-full border border-muted/40 text-muted hover:bg-muted/60 transition-colors">
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
-        <CardHeader>
-          <div className="flex items-start justify-between mb-2">
-            <Badge variant="secondary">{product.category}</Badge>
-          </div>
-          <CardTitle className="text-2xl">{product.name}</CardTitle>
-          <CardDescription className="text-base">
-            {product.description}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2 mb-4">
-            {Object.entries(product.specs).map(([key, value]) => (
-              <div key={key} className="flex justify-between text-sm">
-                <span className="text-muted-foreground capitalize">
-                  {key.replace(/([A-Z])/g, ' $1').trim()}:
-                </span>
-                <span className="font-medium">{value}</span>
-              </div>
-            ))}
-          </div>
-          <Button variant="ghost" className="w-full group/btn">
-            Learn More
-            <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-          </Button>
-        </CardContent>
-      </Card>
+      </div>
     </motion.div>
   );
 };

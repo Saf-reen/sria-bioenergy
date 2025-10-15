@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Hero from "@/components/Hero";
+import AnimatedSection from "@/components/AnimatedSection";
 import MapComponent from "@/components/MapComponent";
 import { offices } from "@/data/mockData";
 import heroImage from "@/assets/hero-biomass.jpg";
@@ -13,10 +14,11 @@ const GlobalPresence = () => {
         title="LOCAL CONNECTION, GLOBAL STRENGTH"
         subtitle="At SRIA BIOENERGY, we believe that having the strength of a global company with local anchoring and representatives is vital to building and maintaining trusting and lasting client relationships."
         backgroundImage={heroImage}
+        classHeight="h-[80vh]"
       />
 
       {/* Map Section */}
-      <section className="py-20">
+      <AnimatedSection className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
             className="mb-12"
@@ -31,7 +33,7 @@ const GlobalPresence = () => {
             <MapComponent />
           </motion.div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Office List */}
       <section className="py-20 bg-muted">

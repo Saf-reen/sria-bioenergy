@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Hero from "@/components/Hero";
+import AnimatedSection from "@/components/AnimatedSection";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { teamMembers } from "@/data/mockData";
@@ -49,10 +50,11 @@ const About = () => {
         title="A VISION FOR SUSTAINABLE ENERGY"
         subtitle="Since 2009, SRIA BIOENERGY has been driving the renewable energy evolution by providing high-quality biomass solutions. We prioritize our clients and always go the extra mile to meet their needs."
         backgroundImage={heroImage}
+        classHeight="h-[80vh]"
       />
 
       {/* Mission Section */}
-      <section className="py-20" id="story">
+      <AnimatedSection className="py-20" id="story">
         <div className="container mx-auto px-4">
           <motion.div
             className="max-w-4xl mx-auto text-center mb-16"
@@ -122,7 +124,7 @@ const About = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Leadership Section */}
       <section className="py-20 bg-muted" id="leadership">

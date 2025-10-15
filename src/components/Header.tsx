@@ -41,6 +41,19 @@ const Header = () => {
     { name: "Contact", href: "/contact" }
   ];
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // if click is outside any nav dropdown trigger/menu, close
+      if (!target.closest('nav')) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
     <header
       className={cn(
@@ -53,7 +66,8 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-primary">
+            <div className="flex text-2xl font-bold text-primary">
+              <img src='/logo.png' alt='SRIA BIOENERGY Logo' className='w-8 h-auto' />
               SRIA BIOENERGY
             </div>
           </Link>
@@ -61,37 +75,76 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
-              <div
-                key={item.name}
-                className="relative group"
-                onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <Link
-                  to={item.href}
-                  className={cn(
-                    "flex items-center space-x-1 text-sm font-medium transition-colors",
-                    isScrolled
-                      ? "text-foreground hover:text-primary"
-                      : "text-primary-foreground hover:text-primary-foreground/80"
-                  )}
-                >
-                  <span>{item.name}</span>
-                  {item.dropdown && <ChevronDown className="w-4 h-4" />}
-                </Link>
-
-                {item.dropdown && activeDropdown === item.name && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg py-2 animate-fade-in">
-                    {item.dropdown.map((subItem) => (
+              <div key={item.name} className="relative">
+                {item.dropdown ? (
+                  <>
+                    <div className="flex items-center space-x-2">
                       <Link
-                        key={subItem.name}
-                        to={subItem.href}
-                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                        to={item.href}
+                        className={cn(
+                          "text-sm font-medium transition-colors",
+                          isScrolled
+                            ? "text-foreground hover:text-primary"
+                            : "text-primary-foreground hover:text-primary-foreground/80"
+                        )}
+                        onClick={() => setActiveDropdown(null)}
                       >
-                        {subItem.name}
+                        <span>{item.name}</span>
                       </Link>
-                    ))}
-                  </div>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveDropdown((prev) => (prev === item.name ? null : item.name));
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Escape') setActiveDropdown(null);
+                        }}
+                        className={cn(
+                          "p-1 rounded-md transition-colors focus:outline-none",
+                          isScrolled
+                            ? "text-foreground hover:text-primary"
+                            : "text-primary-foreground hover:text-primary-foreground/80"
+                        )}
+                        aria-haspopup='menu'
+                        aria-expanded={activeDropdown === item.name}
+                        aria-label={`${item.name} menu toggle`}
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    {activeDropdown === item.name && (
+                      <div
+                        className="absolute top-full left-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg py-2 animate-fade-in"
+                        role="menu"
+                      >
+                        {item.dropdown.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            to={subItem.href}
+                            className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+                            onClick={() => setActiveDropdown(null)}
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    to={item.href}
+                    className={cn(
+                      "flex items-center space-x-1 text-sm font-medium transition-colors",
+                      isScrolled
+                        ? "text-foreground hover:text-primary"
+                        : "text-primary-foreground hover:text-primary-foreground/80"
+                    )}
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <span>{item.name}</span>
+                  </Link>
                 )}
               </div>
             ))}

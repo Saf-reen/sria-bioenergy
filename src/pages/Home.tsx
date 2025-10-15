@@ -3,51 +3,30 @@ import { Link } from "react-router-dom";
 import Hero from "@/components/Hero";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import ProductCard from "@/components/ProductCard";
+import ProductsCarousel from "@/components/ProductsCarousel";
+import SectionStack from "@/components/SectionStack";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Leaf, Globe, Users, TrendingUp } from "lucide-react";
 import { stats, products } from "@/data/mockData";
 import heroImage from "@/assets/hero-biomass.jpg";
 import biomassImage from "@/assets/biomass-pellets.jpg";
 import sustainabilityImage from "@/assets/sustainability.jpg";
+import teamImage from "@/assets/team-member.jpg";
 
 const Home = () => {
   return (
     <div className="min-h-screen">
       <Hero
         title="GROWING TOGETHER"
-        subtitle="At SRIA BIOENERGY, the world's leading biomass trading company, we enable a greener tomorrow by setting the pace in the marketplace and leading innovation and excellence in producing, trading, and delivering biomass solutions. At the heart of our mission is a team of industry frontrunners – fuelled by passion and ambition."
+        subtitle="BIOENERGY marks our strategic expansion into the renewable energy sector, focusing on biomass, biofuels, and sustainable energy solutions that convert waste into opportunity. This initiative aligns with SRIA’s mission to build a Smart, Resilient, Inclusive, and Agile India, while creating real impact in the lives of rural communities through innovation and sustainability."
         backgroundImage={heroImage}
         primaryCTA={{ text: "About Us", href: "/about" }}
         secondaryCTA={{ text: "Get in Touch", href: "/contact" }}
+        classHeight="h-screen"
       />
 
-      {/* Stats Section */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <AnimatedCounter
-              end={stats.tonnesDelivered}
-              label="Tonnes Delivered Annually"
-              suffix="+"
-            />
-            <AnimatedCounter
-              end={stats.offices}
-              label="Global Offices"
-            />
-            <AnimatedCounter
-              end={stats.employees}
-              label="Expert Team Members"
-            />
-            <AnimatedCounter
-              end={stats.countries}
-              label="Countries Served"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* About Preview */}
-      <section className="py-20">
+      <SectionStack className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -58,7 +37,7 @@ const Home = () => {
             >
               <h2 className="section-title">Growing Together Towards a Greener Tomorrow</h2>
               <p className="section-subtitle mb-6">
-                Since 2009, SRIA BIOENERGY has been driving the renewable energy evolution by providing high-quality biomass solutions. We prioritize our clients and always go the extra mile to meet their needs. Join us in our mission to grow together towards a greener tomorrow, one pellet at a time.
+                BioEnergy marks our strategic expansion into the renewable energy sector, focusing on biomass, biofuels, and sustainable energy solutions that convert waste into opportunity. This initiative aligns with SRIA’s mission to build a Smart, Resilient, Inclusive, and Agile India, while creating real impact in the lives of rural communities through innovation and sustainability.
               </p>
               <div className="grid grid-cols-2 gap-6 mb-8">
                 <div className="flex items-start space-x-3">
@@ -112,10 +91,10 @@ const Home = () => {
             </motion.div>
           </div>
         </div>
-      </section>
+      </SectionStack>
 
       {/* Products Preview */}
-      <section className="py-20 bg-muted">
+      <SectionStack className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-12"
@@ -128,10 +107,8 @@ const Home = () => {
               SRIA BIOENERGY caters to a broad spectrum of clients, from large-scale producers and utilities to smaller regional distributors. Our diverse portfolio includes both industrial and premium-grade wood pellets.
             </p>
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, index) => (
-              <ProductCard key={product.id} product={product} index={index} />
-            ))}
+          <div>
+            <ProductsCarousel hideScrollbar />
           </div>
           <div className="text-center mt-12">
             <Button variant="default" size="lg" asChild>
@@ -142,10 +119,97 @@ const Home = () => {
             </Button>
           </div>
         </div>
+      </SectionStack>
+
+      {/* Stats Section - full viewport with hover-change background */}
+      <section className="relative h-full overflow-hidden pt-4">
+        {/* background image (changes on hover) */}
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-all duration-500"
+          style={{ backgroundImage: `url(${heroImage})`, filter: "brightness(0.45)" }}
+          id="stats-bg"
+        />
+        <div className="absolute inset-0 bg-black/10" />
+
+        <div className="relative z-10 w-full h-full">
+          <div className="container mx-auto px-4 h-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center">
+              {/* left column (can be used for intro or left empty) */}
+              <div className="hidden lg:block" />
+
+              {/* right column: counters stacked and aligned to the right edge */}
+              <div className="flex items-center justify-end h-full">
+                <div className="w-full max-w-2xl text-white">
+                  <div className="space-y-12 py-12">
+                    <AnimatedCounter
+                      end={stats.tonnesDelivered}
+                      label="Million Tonnes Biomass Delivered Annually"
+                      suffix=""
+                      displayMode="millions"
+                      onMouseEnter={() => {
+                        const el = document.getElementById('stats-bg');
+                        if (el) el.style.backgroundImage = `url(${heroImage})`;
+                      }}
+                      onMouseLeave={() => {}}
+                      align="start"
+                    />
+
+                    <AnimatedCounter
+                      end={240}
+                      label="Employees Across the Globe"
+                      suffix="+"
+                      onMouseEnter={() => {
+                        const el = document.getElementById('stats-bg');
+                        if (el) el.style.backgroundImage = `url(${teamImage})`;
+                      }}
+                      onMouseLeave={() => {
+                        const el = document.getElementById('stats-bg');
+                        if (el) el.style.backgroundImage = `url(${heroImage})`;
+                      }}
+                      align="start"
+                    />
+
+                    <AnimatedCounter
+                      end={stats.offices}
+                      label="Key Markets with Offices"
+                      onMouseEnter={() => {
+                        const el = document.getElementById('stats-bg');
+                        if (el) el.style.backgroundImage = `url(${biomassImage})`;
+                      }}
+                      onMouseLeave={() => {
+                        const el = document.getElementById('stats-bg');
+                        if (el) el.style.backgroundImage = `url(${heroImage})`;
+                      }}
+                      align="start"
+                    />
+
+                    <AnimatedCounter
+                      end={2009}
+                      label="Providing Renewable Energy Since 2009"
+                      onMouseEnter={() => {
+                        const el = document.getElementById('stats-bg');
+                        if (el) el.style.backgroundImage = `url(${sustainabilityImage})`;
+                      }}
+                      onMouseLeave={() => {
+                        const el = document.getElementById('stats-bg');
+                        if (el) el.style.backgroundImage = `url(${heroImage})`;
+                      }}
+                      align="start"
+                    />
+
+                    <p className="text-sm text-white/70 max-w-2xl">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at nisi sapien. Mauris sed pellentesque orci. Sed tempus libero at efficitur tempor. Morbi elementum consequat volutpat.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Global Presence */}
-      <section className="py-20">
+      <SectionStack className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-12"
@@ -167,41 +231,44 @@ const Home = () => {
             </Button>
           </div>
         </div>
-      </section>
+      </SectionStack>
 
       {/* Sustainability */}
-      <section className="py-20 relative overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${sustainabilityImage})` }}
-        />
-        <div className="absolute inset-0 bg-primary/90" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center text-primary-foreground">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="section-title text-primary-foreground mb-6">
-                A More Responsible Way Forward
-              </h2>
-              <p className="text-lg md:text-xl mb-8 text-primary-foreground/90">
-                At SRIA BIOENERGY, we are not just committed to sustainability — we are passionate about making a meaningful difference in the world. Join us on our journey towards a greener tomorrow.
-              </p>
-              <Button variant="hero" size="lg" asChild>
-                <Link to="/sustainability">
-                  Learn About Our Commitment
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-            </motion.div>
+      <SectionStack className="py-20 relative overflow-hidden">
+        {/* Sustainability */}
+        <section className="py-20 relative overflow-hidden">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${sustainabilityImage})` }}
+          />
+          <div className="absolute inset-0 bg-primary/90" />
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-3xl mx-auto text-center text-primary-foreground">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="section-title text-primary-foreground mb-6">
+                  A More Responsible Way Forward
+                </h2>
+                <p className="text-lg md:text-xl mb-8 text-primary-foreground/90">
+                  At SRIA BIOENERGY, we are not just committed to sustainability — we are passionate about making a meaningful difference in the world. Join us on our journey towards a greener tomorrow.
+                </p>
+                <Button variant="hero" size="lg" asChild>
+                  <Link to="/sustainability">
+                    Learn About Our Commitment
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
+                </Button>
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionStack>
 
       {/* CTA Section */}
-      <section className="py-20 bg-muted">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <motion.div

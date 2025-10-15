@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Hero from "@/components/Hero";
+import AnimatedSection from "@/components/AnimatedSection";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -40,10 +41,11 @@ const Sustainability = () => {
         title="A MORE RESPONSIBLE WAY FORWARD"
         subtitle="At SRIA BIOENERGY, we are not just committed to sustainability — we are passionate about making a meaningful difference in the world. Join us on our journey towards a greener tomorrow."
         backgroundImage={sustainabilityImage}
+        classHeight="h-[80vh]"
       />
 
       {/* Commitment Section */}
-      <section className="py-20" id="commitment">
+      <AnimatedSection className="py-20" id="commitment">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-12"
@@ -111,7 +113,7 @@ const Sustainability = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Certificates Section */}
       <section className="py-20 bg-muted" id="certificates">
@@ -167,15 +169,15 @@ const Sustainability = () => {
             <h2 className="section-title mb-12">Our Environmental Impact</h2>
             <div className="grid md:grid-cols-3 gap-8">
               <div>
-                <div className="text-5xl font-bold text-accent mb-2">100%</div>
+                <div className="text-5xl font-bold text-primary mb-2">100%</div>
                 <p className="text-muted-foreground">Certified Sustainable Biomass</p>
               </div>
               <div>
-                <div className="text-5xl font-bold text-accent mb-2">2.5M</div>
+                <div className="text-5xl font-bold text-primary mb-2">2.5M</div>
                 <p className="text-muted-foreground">Tonnes CO₂ Offset Annually</p>
               </div>
               <div>
-                <div className="text-5xl font-bold text-accent mb-2">Zero</div>
+                <div className="text-5xl font-bold text-primary mb-2">Zero</div>
                 <p className="text-muted-foreground">Deforestation Footprint</p>
               </div>
             </div>

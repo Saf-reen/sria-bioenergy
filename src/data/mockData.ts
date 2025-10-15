@@ -12,7 +12,7 @@ export const products = [
       ashContent: "< 0.7%",
       energyDensity: "4.8 kWh/kg"
     },
-    image: "/placeholder-product.jpg"
+    image: "/products/premium-wood-pellet.png"
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const products = [
       ashContent: "< 0.5%",
       energyDensity: "5.0 kWh/kg"
     },
-    image: "/placeholder-product.jpg"
+    image: "/products/premium-residental-pellet.jpg"
   },
   {
     id: 3,
@@ -38,7 +38,80 @@ export const products = [
       ashContent: "< 3%",
       energyDensity: "4.5 kWh/kg"
     },
-    image: "/placeholder-product.jpg"
+    image: "/products/bio-coal-alternative.jpg"
+  }
+  ,
+  {
+    id: 4,
+    name: "Industrial Wood Pellets",
+    category: "Industrial Grade",
+    description: "Robust industrial wood pellets suitable for large-scale boilers and power plants.",
+    specs: { diameter: "6-8mm", moisture: "< 8%", ashContent: "< 1%", energyDensity: "4.7 kWh/kg" },
+    image: "/products/industrial-wood-pellet.png"
+  },
+  {
+    id: 5,
+    name: "Peanut Hull Pellets (PHP)",
+    category: "Agricultural Biomass",
+    description: "Pellets produced from peanut hulls — a sustainable agricultural residue.",
+    specs: { diameter: "6-10mm", moisture: "< 10%", ashContent: "< 2%", energyDensity: "4.2 kWh/kg" },
+    image: "/products/peanut-hull-pellets.png"
+  },
+  {
+    id: 6,
+    name: "Sugar Cane Bagasse Pellets",
+    category: "Agricultural Biomass",
+    description: "Pellets made from sugar cane bagasse for efficient combustion in industrial boilers.",
+    specs: { diameter: "8-12mm", moisture: "< 12%", ashContent: "< 3%", energyDensity: "4.0 kWh/kg" },
+    image: "/products/sugar-cane-bagasee.png"
+  },
+  {
+    id: 7,
+    name: "Sunflower Husk Pellets",
+    category: "Agricultural Biomass",
+    description: "High-heat pellets produced from sunflower husks.",
+    specs: { diameter: "6-10mm", moisture: "< 10%", ashContent: "< 2%", energyDensity: "4.1 kWh/kg" },
+    image: "/products/sunflower-husk-pellets.png"
+  },
+  {
+    id: 8,
+    name: "Cashew Nut Shells (CNS)",
+    category: "Nut Shell Biomass",
+    description: "Dense shells offering high calorific value ideal for co-firing or standalone combustion.",
+    specs: { size: "variable", moisture: "< 8%", ashContent: "< 1%", energyDensity: "4.9 kWh/kg" },
+    image: "/products/cashew-nut-shell.png"
+  },
+  {
+    id: 9,
+    name: "Palm Kernel Shells (PKS)",
+    category: "Nut Shell Biomass",
+    description: "Palm kernel shells — a widely used biomass fuel in tropical regions.",
+    specs: { size: "variable", moisture: "< 10%", ashContent: "< 2%", energyDensity: "4.6 kWh/kg" },
+    image: "/products/palm-kernel-shell.png"
+  },
+  {
+    id: 10,
+    name: "Crushed Cashew Nut Shells (CCNS)",
+    category: "Nut Shell Biomass",
+    description: "Finely crushed cashew shells ready for pelletizing or direct combustion.",
+    specs: { size: "crushed", moisture: "< 8%", ashContent: "< 1%", energyDensity: "4.85 kWh/kg" },
+    image: "/products/crushed-cashew-shells.png"
+  },
+  {
+    id: 11,
+    name: "Olive Pits",
+    category: "Horticultural Biomass",
+    description: "Olive pits with high energy density used in various combustion systems.",
+    specs: { size: "variable", moisture: "< 12%", ashContent: "< 2%", energyDensity: "4.4 kWh/kg" },
+    image: "/products/olive-pits.png"
+  },
+  {
+    id: 12,
+    name: "Olive Cake (Olive Pomace)",
+    category: "Horticultural Biomass",
+    description: "Residual olive cake useful for energy and soil amendment applications.",
+    specs: { size: "variable", moisture: "< 15%", ashContent: "< 3%", energyDensity: "3.8 kWh/kg" },
+    image: "/products/olive-cake.png"
   }
 ];
 

@@ -59,7 +59,7 @@ const Careers = () => {
                 transition={{ delay: index * 0.05 }}
               >
                 <div className="flex items-start space-x-3">
-                  <span className="text-accent text-xl font-bold">✓</span>
+                  <span className="text-foreground text-xl font-bold">✓</span>
                   <p className="text-foreground">{benefit}</p>
                 </div>
               </motion.div>
@@ -92,7 +92,7 @@ const Careers = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="hover-lift cursor-pointer" onClick={() => setSelectedJob(job)}>
+                <Card className="hover-lift cursor-pointer " onClick={() => setSelectedJob(job)}>
                   <CardHeader>
                     <div className="flex flex-wrap items-start justify-between gap-4 mb-2">
                       <div>

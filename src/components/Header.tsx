@@ -23,8 +23,8 @@ const Header = () => {
       name: "About Us",
       href: "/about",
       dropdown: [
-        { name: "Our Story", href: "/about#story" },
-        { name: "Leadership", href: "/about#leadership" }
+        { name: "Our Story", href: "/our-story" },
+        { name: "Leadership", href: "/leadership" }
       ]
     },
     { name: "Products", href: "/products" },
@@ -33,8 +33,8 @@ const Header = () => {
       name: "Sustainability",
       href: "/sustainability",
       dropdown: [
-        { name: "Commitment", href: "/sustainability#commitment" },
-        { name: "Certificates", href: "/sustainability#certificates" }
+        { name: "Commitment", href: "/commitments" },
+        { name: "Certificates", href: "/certificates" }
       ]
     },
     { name: "Careers", href: "/careers" },
@@ -59,7 +59,7 @@ const Header = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-md py-3"
+          ? "bg-muted backdrop-blur-md shadow-md py-3"
           : "bg-transparent py-5"
       )}
     >

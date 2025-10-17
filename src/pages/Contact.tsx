@@ -86,7 +86,7 @@ const Contact = () => {
       {/* Contact Form - two-column card layout */}
       <AnimatedSection className="py-20 ">
         <div className="container mb-2 mx-auto px-4">
-          <div className="max-w-6xl mx-auto bg-white rounded-xl overflow-hidden shadow-lg grid grid-cols-1 lg:grid-cols-2">
+          <div className="max-w-6xl mx-auto bg-background rounded-xl overflow-hidden shadow-lg grid grid-cols-1 lg:grid-cols-2">
             {/* left image panel */}
             <div className="relative bg-cover bg-center" style={{ backgroundImage: `url(${contactLeft})` }}>
               <div className="absolute inset-0 bg-black/35" />
@@ -105,7 +105,7 @@ const Contact = () => {
             </div>
 
             {/* middle form panel */}
-            <div className="p-12 mx-auto bg-white lg:col-span-1">
+            <div className="p-12 mx-auto bg-muted lg:col-span-1">
               <h2 className="text-2xl font-bold mb-4">Register your Interest</h2>
               <p className="text-sm text-muted-foreground mb-6">Thank you for your interest in CM Biomass. We are committed to being a reliable partner in your renewable energy journey. Please fill out the form and we will respond promptly.</p>
 

@@ -1,7 +1,11 @@
+import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
 import { useParams, Link } from "react-router-dom";
 import { products } from "@/data/mockData";
 import heroImage from "@/assets/biomass-pellets.jpg";
-import { ArrowLeft } from "lucide-react";
+import ProductCard from "@/components/ProductCard";
+import ProductsCarousel from "@/components/ProductsCarousel";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -19,36 +23,228 @@ const ProductDetail = () => {
     );
   }
 
+  // use a fixed light/beige hero background for all product pages
+  const heroBg = "#efe8e0"; // light beige — change if you prefer a different color
+  const isDark = false; // background is light, so use dark text
+
   return (
     <div className="min-h-screen">
-      <div className="bg-cover bg-center h-64" style={{ backgroundImage: `url(${heroImage})` }} />
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-3 gap-8 items-start">
-          <div className="md:col-span-1">
-            <img src={product.image || heroImage} alt={product.name} className="w-full rounded-lg" />
-          </div>
-          <div className="md:col-span-2">
-            <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-            <p className="text-muted-foreground mb-6">{product.description}</p>
-
-            <h3 className="font-semibold mb-2">Specifications</h3>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              {product.specs && Object.entries(product.specs).map(([k, v]) => (
-                <div key={k} className="bg-muted p-3 rounded">
-                  <div className="text-sm text-muted-foreground capitalize">{k}</div>
-                  <div className="font-medium">{v}</div>
-                </div>
-              ))}
+      {/* Product hero: left title/desc, center image, right specs */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: heroBg }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5" />
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-8">
+            {/* Left: title / description */}
+            <div className="lg:col-span-1">
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6 text-foreground">{product.name}</h1>
+              <p className="max-w-xl mb-8 text-muted-foreground">{product.description}</p>
             </div>
 
-            <Link to="/products" className="inline-flex items-center gap-2 text-primary">
-              <ArrowLeft /> Back to products
-            </Link>
+            {/* Center: tall product image (use product.heroImage if available so PNGs with transparency work) */}
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-[360px] md:max-w-[420px] lg:max-w-[540px]">
+                <img src={(product as any).heroImage || product.image || heroImage} alt={product.name} className="w-full h-[520px] object-contain mx-auto bg-transparent" />
+              </div>
+            </div>
+
+            {/* Right: specs displayed large */}
+            <div className="lg:col-span-1 text-foreground">
+              <div className="space-y-8">
+                {product.specs && Object.entries(product.specs).map(([k, v]) => (
+                  <div key={k} className="border-b border-white/30 pb-6">
+                    <div className="text-4xl lg:text-5xl font-light tracking-tight">{v}</div>
+                    <div className="text-sm mt-2 capitalize text-muted-foreground">{k.replace(/([A-Z])/g, ' $1')}</div>
+                  </div>
+                ))}
+
+                <p className="text-xs text-white/60 mt-6">All specifications, figures, and images presented on this website are for illustrative and informational purposes only.</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Details panels: Origin / Availability / Sustainability (product-specific) */}
+      <section className="container mx-auto px-4 py-12">
+        <h2 className="section-title mb-6">Product Details</h2>
+        <DetailsPanels product={product} />
+      </section>
+
+      {/* Other products carousel (exclude current) - match Home: arrows + no native scrollbar */}
+      <section className="container mx-auto px-4 py-12">
+        <h3 className="text-2xl font-bold mb-6">Other Products</h3>
+        <ProductsCarousel hideScrollbar items={products.filter((p) => p.id !== product.id)} />
+      </section>
     </div>
   );
 };
 
 export default ProductDetail;
+
+
+/* ---------------- CarouselPreview component (local) ---------------- */
+function CarouselPreview({ currentId }: { currentId: number | string }) {
+  const idx = products.findIndex((p) => String(p.id) === String(currentId));
+  const len = products.length;
+  // start window so current product is the first (large) panel
+  const initialWindow = useMemo(() => {
+    if (idx === -1) return [0, 1 % len, (2 % len)];
+    return [idx, (idx + 1) % len, (idx + 2) % len];
+  }, [idx, len]);
+
+  const [windowStart, setWindowStart] = useState<number>(initialWindow[0]);
+
+  const getWindow = (start: number) => [start, (start + 1) % len, (start + 2) % len];
+
+  const windowIds = getWindow(windowStart);
+
+  const handleNext = () => {
+    setWindowStart((s) => (s + 1) % len);
+  };
+
+  const handlePrev = () => {
+    setWindowStart((s) => (s - 1 + len) % len);
+  };
+
+  // if fewer than 3 products, just render what's available
+  if (len === 0) return null;
+
+  return (
+    <div className="relative">
+      <div className="flex items-stretch gap-4">
+        {windowIds.map((i, index) => {
+          const p = products[i];
+          const isActive = index === 0; // first one is displayed large
+
+          const variants = {
+            active: { scale: 1, opacity: 1, zIndex: 2, x: 0 },
+            side: { scale: 0.88, opacity: 0.9, zIndex: 1, x: isActive ? 0 : (index === 1 ? 40 : -40) }
+          } as const;
+
+          // panel-specific content (title + body) - product can provide overrides via fields if needed
+          const panelTitles = ["Origin", "Availability", "Sustainability"];
+          const panelBodies = [
+            // Origin fallback: product.description (or a shorter variant)
+            p.description || "",
+            // Availability fallback: generic text
+            (p as any).availability || "This product is available through our network of suppliers and depends on seasonal and regional supply conditions.",
+            // Sustainability fallback: generic sustainability text
+            (p as any).sustainability || "We prioritize sustainable sourcing and traceability for this product across the supply chain."
+          ];
+
+          const title = panelTitles[index] || p.name;
+          const body = panelBodies[index] || p.description;
+
+          return (
+            <motion.div
+              layout
+              key={p.id}
+              initial={isActive ? "active" : "side"}
+              animate={isActive ? "active" : "side"}
+              variants={variants}
+              transition={{ type: "spring", stiffness: 140, damping: 18 }}
+              className={`flex-shrink-0 overflow-hidden rounded-lg ${isActive ? "w-2/3 lg:w-3/5" : "w-1/6 lg:w-1/6"} cursor-pointer`}
+              onClick={() => setWindowStart(i)}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="relative h-full">
+                <img src={p.image || heroImage} alt={p.name} className="w-full h-80 object-cover" />
+
+                {/* show content card for active panel only (center) to match design */}
+                {isActive ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.08 }}
+                    className="absolute left-4 bottom-4 bg-white px-6 py-6 rounded-2xl max-w-lg shadow-lg"
+                  >
+                    <h4 className="text-xl font-semibold mb-2">{title}</h4>
+                    <p className="text-sm text-muted-foreground">{body}</p>
+                  </motion.div>
+                ) : (
+                  // for side panels show vertical rotated label for quick access
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-white/95 rotate-[-90deg] origin-left text-sm font-medium">
+                    {title}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* navigation arrows */}
+      <div className="flex items-center justify-center gap-4 mt-6">
+        <motion.button whileHover={{ scale: 1.06 }} onClick={handlePrev} aria-label="previous" className="p-3 rounded-full bg-muted hover:bg-muted/80">
+          <ChevronLeft className="w-5 h-5" />
+        </motion.button>
+        <motion.button whileHover={{ scale: 1.06 }} onClick={handleNext} aria-label="next" className="p-3 rounded-full bg-muted hover:bg-muted/80">
+          <ChevronRight className="w-5 h-5" />
+        </motion.button>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- DetailsPanels component (product-specific) ---------------- */
+function DetailsPanels({ product }: { product: any }) {
+  const panels = [
+    { key: 'origin', title: 'Origin', body: product.origin || product.description || '' },
+    { key: 'availability', title: 'Availability', body: product.availability || '' },
+    { key: 'sustainability', title: 'Sustainability', body: product.sustainability || '' },
+  ];
+
+  // open panel key; default to 'origin'
+  const [open, setOpen] = useState<string>('origin');
+
+  return (
+    // stack on small screens, single row on lg and up; percentages used so total fits within container
+    <div className="flex flex-col lg:flex-row gap-6 items-stretch w-full">
+      {panels.map((panel) => {
+        const isOpen = open === panel.key;
+
+        return (
+          <motion.div
+            key={panel.key}
+            layout
+            initial={{ borderRadius: 16 }}
+            whileHover={{ scale: isOpen ? 1.01 : 1.005 }}
+            transition={{ type: 'spring', stiffness: 160, damping: 20 }}
+            // use basis percentages so sum of widths is ~100% on large screens: open ~70%, closed ~15% each
+            className={`relative overflow-hidden rounded-2xl bg-cover bg-center shadow flex-shrink-0 ${isOpen ? 'basis-[80%] min-h-[420px]' : 'basis-[10%] min-h-[300px]'}`}
+            style={{ backgroundImage: `url(${product.image || heroImage})` }}
+            onClick={() => setOpen(panel.key)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') setOpen(panel.key); }}
+          >
+            {/* overlay only when closed so image is more visible when open */}
+            {!isOpen && <div className="absolute inset-0 bg-black/30" />}
+
+            {/* Header area - show vertical title only when closed */}
+            {!isOpen && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <span className="text-white font-semibold text-sm transform -rotate-90 tracking-wide whitespace-nowrap">
+                  {panel.title}
+                </span>
+              </div>
+            )}
+
+            {/* Content - only shown when open; positioned bottom-left and taller */}
+            {isOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.28 }}
+                className="absolute left-6 bottom-6 bg-white rounded-2xl shadow-lg p-6 w-[42%] min-h-[220px] max-w-[720px]"
+              >
+                <h4 className="text-2xl font-semibold text-foreground mb-3">{panel.title}</h4>
+                <p className="text-sm text-muted-foreground">{panel.body || 'Details coming soon.'}</p>
+              </motion.div>
+            )}
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}

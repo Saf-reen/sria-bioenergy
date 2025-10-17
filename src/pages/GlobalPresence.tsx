@@ -14,7 +14,7 @@ const GlobalPresence = () => {
         title="LOCAL CONNECTION, GLOBAL STRENGTH"
         subtitle="At SRIA BIOENERGY, we believe that having the strength of a global company with local anchoring and representatives is vital to building and maintaining trusting and lasting client relationships."
         backgroundImage={heroImage}
-        classHeight="h-[80vh]"
+        classHeight="h-[60vh]"
       />
 
       {/* Map Section */}

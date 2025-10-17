@@ -71,7 +71,7 @@ const Sustainability = () => {
                 <Card className="h-full text-center hover-lift">
                   <CardContent className="pt-8">
                     <div className="w-16 h-16 mx-auto mb-4 bg-accent/10 rounded-full flex items-center justify-center">
-                      <commitment.icon className="w-8 h-8 text-accent" />
+                      <commitment.icon className="w-8 h-8 text-muted-foreground" />
                     </div>
                     <h3 className="text-xl font-bold mb-3">{commitment.title}</h3>
                     <p className="text-muted-foreground">{commitment.description}</p>

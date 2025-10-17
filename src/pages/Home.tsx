@@ -198,7 +198,7 @@ const Home = () => {
                     />
 
                     <p className="text-sm text-white/70 max-w-2xl">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at nisi sapien. Mauris sed pellentesque orci. Sed tempus libero at efficitur tempor. Morbi elementum consequat volutpat.
+                      Connecting communities, powering sustainable futures — our work brings clean, reliable biomass solutions from local partners to global markets.
                     </p>
                   </div>
                 </div>
@@ -211,92 +211,67 @@ const Home = () => {
       {/* Global Presence */}
       <SectionStack className="py-20">
         <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="section-title">Local Connection, Global Strength</h2>
-            <p className="section-subtitle max-w-3xl mx-auto">
-              At SRIA BIOENERGY, we believe that having the strength of a global company with local anchoring and representatives is vital to building and maintaining trusting and lasting client relationships.
-            </p>
-          </motion.div>
-          <div className="text-center">
-            <Button variant="default" size="lg" asChild>
-              <Link to="/global-presence">
-                Explore Our Offices
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </SectionStack>
-
-      {/* Sustainability */}
-      <SectionStack className="py-20 relative overflow-hidden">
-        {/* Sustainability */}
-        <section className="py-20 relative overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${sustainabilityImage})` }}
-          />
-          <div className="absolute inset-0 bg-primary/90" />
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-3xl mx-auto text-center text-primary-foreground">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="section-title text-primary-foreground mb-6">
-                  A More Responsible Way Forward
-                </h2>
-                <p className="text-lg md:text-xl mb-8 text-primary-foreground/90">
-                  At SRIA BIOENERGY, we are not just committed to sustainability — we are passionate about making a meaningful difference in the world. Join us on our journey towards a greener tomorrow.
-                </p>
-                <Button variant="hero" size="lg" asChild>
-                  <Link to="/sustainability">
-                    Learn About Our Commitment
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-      </SectionStack>
-
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="w-full"
             >
-              <h2 className="section-title mb-6">Ready to Partner With Us?</h2>
-              <p className="section-subtitle mb-8">
-                Let's work together towards a sustainable energy future. Get in touch with our team today.
+              <img
+                src={biomassImage}
+                alt="Our team"
+                className="rounded-lg shadow-xl w-full h-auto object-cover"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="section-title">Local Connection, Global Strength</h2>
+              <p className="section-subtitle max-w-3xl">
+                At SRIA BIOENERGY, we believe that having the strength of a global company with local anchoring and representatives is vital to building and maintaining trusting and lasting client relationships.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button variant="default" size="lg" asChild>
-                  <Link to="/contact">
-                    Contact Us
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link to="/careers">
-                    Join Our Team
-                  </Link>
-                </Button>
+
+              <div className="mt-8 space-y-6">
+                <div className="flex items-start space-x-3">
+                  <Leaf className="w-6 h-6 text-muted-foreground flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold mb-1">Regional Expertise</h3>
+                    <p className="text-sm text-muted-foreground">Locally-rooted teams with global standards</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <Globe className="w-6 h-6 text-muted-foreground flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold mb-1">Operational Footprint</h3>
+                    <p className="text-sm text-muted-foreground">Offices across key markets for fast response</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 mt-2">
+                  <Button variant="default" size="lg" asChild>
+                    <Link to="/global-presence">
+                      Explore Our Offices
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Link>
+                  </Button>
+
+                  <Button variant="outline" size="lg" asChild>
+                    <Link to="/contact">Get In Touch</Link>
+                  </Button>
+                </div>
               </div>
             </motion.div>
           </div>
         </div>
-      </section>
+      </SectionStack>
+
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import ProductCard from "@/components/ProductCard";
 import { products as defaultProducts } from "@/data/mockData";
 
@@ -62,14 +63,24 @@ const ProductsCarousel = ({ hideScrollbar = false, items }: ProductsCarouselProp
 	// scroll selected item into view when index changes
 	useEffect(() => {
 		const el = itemRefs.current[index];
-		if (el) {
-			el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+		const container = containerRef.current;
+		if (el && container) {
+			// compute centered scrollLeft position within the horizontal container
+			const elCenter = el.offsetLeft + el.clientWidth / 2;
+			const targetLeft = Math.max(0, elCenter - container.clientWidth / 2);
+			container.scrollTo({ left: targetLeft, behavior: 'smooth' });
 		}
 	}, [index]);
 
 	return (
-		<div ref={containerRef} className="relative">
-			<div className={`grid grid-flow-col auto-cols-[min(280px,30vw)] gap-6 py-6 ${hideScrollbar ? "overflow-x-hidden no-scrollbar" : "overflow-x-auto"}`}>
+		<motion.div
+			className="relative"
+			initial={{ opacity: 0, y: 10 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			viewport={{ once: true, amount: 0.12 }}
+			transition={{ duration: 0.5 }}
+		>
+			<div ref={containerRef} className={`grid grid-flow-col auto-cols-[min(280px,30vw)] gap-6 py-6 ${hideScrollbar ? "overflow-x-hidden no-scrollbar" : "overflow-x-auto"}`}>
 				{itemsToUse.map((p, i) => (
 					<div key={p.id} ref={(el) => (itemRefs.current[i] = el)} className={`min-w-0 ${i === index ? "opacity-100" : "opacity-70"}`}>
 						<ProductCard product={p} index={i} />
@@ -96,7 +107,7 @@ const ProductsCarousel = ({ hideScrollbar = false, items }: ProductsCarouselProp
 					›
 				</button>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

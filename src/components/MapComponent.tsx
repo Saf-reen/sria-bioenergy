@@ -1,29 +1,78 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import { offices } from "@/data/mockData";
 
-const MapComponent: React.FC = () => {
-  const src =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3790.313571614111!2d79.9405633!3d18.195508500000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a330d0001bb9a45%3A0x478ef453dda60267!2sSria%20Infotech%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1760607009603!5m2!1sen!2sin"
-    // "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.280746844092!2d78.3542804!3d17.4941067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9398a74e6225%3A0x9ab33bfbaff07f32!2sSria%20Infotech%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1760521105383!5m2!1sen!2sin";
+// Move icon URL fixes to a client-only effect (avoids SSR/window issues)
+
+type MapProps = {
+  selectedOfficeId?: number | null;
+};
+
+const RecenterAndOpen: React.FC<{ officeId?: number | null }> = ({ officeId }) => {
+  const map = useMap();
+  useEffect(() => {
+    if (!officeId) return;
+    const office = offices.find((o) => o.id === officeId);
+    if (!office) return;
+    map.flyTo([office.lat, office.lng], 8, { duration: 1.2 });
+
+    // open popup - find matching layer by position
+    const targetLatLng = L.latLng(office.lat, office.lng);
+    map.eachLayer((layer: any) => {
+      if (layer.getLatLng && layer.getLatLng().equals(targetLatLng) && layer.openPopup) {
+        layer.openPopup();
+      }
+    });
+  }, [officeId, map]);
+  return null;
+};
+
+const MapComponent: React.FC<MapProps> = ({ selectedOfficeId = null }) => {
+  const defaultCenter: [number, number] = [offices[0].lat, offices[0].lng];
+  // no imperative map ref required for current behavior
+
+  useEffect(() => {
+    // Set default marker icons using Vite-resolved URLs to avoid bundler issues
+    try {
+      const base = new URL("/", import.meta.url).origin;
+      const iconRetina = base + "/node_modules/leaflet/dist/images/marker-icon-2x.png";
+      const iconUrl = base + "/node_modules/leaflet/dist/images/marker-icon.png";
+      const shadowUrl = base + "/node_modules/leaflet/dist/images/marker-shadow.png";
+      delete (L.Icon.Default.prototype as any)._getIconUrl;
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl: iconRetina,
+        iconUrl: iconUrl,
+        shadowUrl: shadowUrl,
+      });
+    } catch (e) {
+      // ignore - fallback to default if resolution fails
+    }
+  }, []);
 
   return (
-    <div className="relative w-full h-[600px] rounded-lg overflow-hidden shadow-lg">
-      <div className="w-full h-full">
-        <iframe
-          title="Sria Infotech Map"
-          src={src}
-          className="w-full h-full border-0"
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-      </div>
-
-      {/* <div className="absolute top-4 left-4 bg-background/95 backdrop-blur-md p-4 rounded-lg shadow-lg">
-        <h3 className="font-semibold mb-2">Our Global Offices</h3>
-        <p className="text-sm text-muted-foreground">{offices.length} offices worldwide</p>
-      </div> */}
-    </div>
+    <motion.div id="global-map" className="relative w-full h-[600px] rounded-lg overflow-hidden shadow-lg"
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.14 }}
+      transition={{ duration: 0.6 }}
+    >
+      <MapContainer center={defaultCenter} zoom={4} className="w-full h-full">
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {offices.map((office) => (
+          <Marker key={office.id} position={[office.lat, office.lng]}>
+            <Popup>
+              <div className="font-bold">{office.name}</div>
+              <div className="text-sm text-muted-foreground">{office.address}</div>
+              <div className="text-sm mt-1">{office.phone} • {office.email}</div>
+            </Popup>
+          </Marker>
+        ))}
+        <RecenterAndOpen officeId={selectedOfficeId} />
+      </MapContainer>
+    </motion.div>
   );
 };
 

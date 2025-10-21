@@ -1,5 +1,5 @@
-import React from "react";
-import { motion, Variants, MotionProps } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { motion, Variants, MotionProps, useInView, useAnimation } from "framer-motion";
 
 type Props = MotionProps & React.HTMLAttributes<HTMLElement> & {
   children: React.ReactNode;
@@ -24,16 +24,28 @@ const slideUpVariants = (stagger = 0): Variants => ({
   },
 });
 
-const AnimatedSection: React.FC<Props> = ({ children, className = "", threshold = 0.12, once = true, stagger = 0, ...rest }) => {
+const AnimatedSection: React.FC<Props> = ({ children, className = "", threshold = 0.12, once = false, stagger = 0, ...rest }) => {
   const variants = slideUpVariants(stagger);
+  const ref = useRef<HTMLElement | null>(null);
+  const inView = useInView(ref, { amount: threshold });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("show");
+    } else if (!once) {
+      // reset to hidden when leaving the viewport so it can animate again on re-entry
+      controls.start("hidden");
+    }
+  }, [inView, once, controls]);
 
   return (
     <motion.section
       {...rest}
+      ref={ref}
       className={className}
       initial="hidden"
-      whileInView="show"
-      viewport={{ once, amount: threshold }}
+      animate={controls}
       variants={variants}
     >
       {children}

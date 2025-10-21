@@ -10,10 +10,10 @@ export const products = [
       diameter: "6-8mm",
       moisture: "< 8%",
       ashContent: "< 0.7%",
-      energyDensity: "4.8 kWh/kg"
+      energyDensity: "4.8 kWh/kg",
     },
     image: "/products/premium-wood-pellet.png",
-    heroImage: "/products/premium-wood-pellet-t.png"
+    heroImage: "/products/premium-wood-pellet-t.png",
   },
   {
     id: 2,
@@ -24,10 +24,10 @@ export const products = [
       diameter: "6mm",
       moisture: "< 7%",
       ashContent: "< 0.5%",
-      energyDensity: "5.0 kWh/kg"
+      energyDensity: "5.0 kWh/kg",
     },
     image: "/products/premium-residental-pellet.jpg",
-    heroImage: "/products/premium-residental-t.png"
+    heroImage: "/products/premium-residental-t.png",
   },
   {
     id: 3,
@@ -38,12 +38,11 @@ export const products = [
       diameter: "10-30mm",
       moisture: "< 10%",
       ashContent: "< 3%",
-      energyDensity: "4.5 kWh/kg"
+      energyDensity: "4.5 kWh/kg",
     },
     image: "/products/bio-coal-alternative.jpg",
-    heroImage: "/products/bio-coal-t.png"
-  }
-  ,
+    heroImage: "/products/bio-coal-t.png",
+  },
   {
     id: 4,
     name: "Industrial Wood Pellets",
@@ -51,7 +50,7 @@ export const products = [
     description: "Robust industrial wood pellets suitable for large-scale boilers and power plants.",
     specs: { diameter: "6-8mm", moisture: "< 8%", ashContent: "< 1%", energyDensity: "4.7 kWh/kg" },
     image: "/products/industrial-wood-pellet.png",
-    heroImage: "/products/industrial-wood-t.png"
+    heroImage: "/products/industrial-wood-t.png",
   },
   {
     id: 5,
@@ -60,7 +59,7 @@ export const products = [
     description: "Pellets produced from peanut hulls — a sustainable agricultural residue.",
     specs: { diameter: "6-10mm", moisture: "< 10%", ashContent: "< 2%", energyDensity: "4.2 kWh/kg" },
     image: "/products/peanut-hull-pellets.png",
-    heroImage: "/products/peanut-hull-t.png"
+    heroImage: "/products/peanut-hull-t.png",
   },
   {
     id: 6,
@@ -69,7 +68,7 @@ export const products = [
     description: "Pellets made from sugar cane bagasse for efficient combustion in industrial boilers.",
     specs: { diameter: "8-12mm", moisture: "< 12%", ashContent: "< 3%", energyDensity: "4.0 kWh/kg" },
     image: "/products/sugar-cane-bagasee.png",
-    heroImage: "/products/sugar-cane-bagasee-t.png"
+    heroImage: "/products/sugar-cane-bagasee-t.png",
   },
   {
     id: 7,
@@ -78,7 +77,7 @@ export const products = [
     description: "High-heat pellets produced from sunflower husks.",
     specs: { diameter: "6-10mm", moisture: "< 10%", ashContent: "< 2%", energyDensity: "4.1 kWh/kg" },
     image: "/products/sunflower-husk-pellets.png",
-    heroImage: "/products/sunflower-t.png"
+    heroImage: "/products/sunflower-t.png",
   },
   {
     id: 8,
@@ -87,7 +86,7 @@ export const products = [
     description: "Dense shells offering high calorific value ideal for co-firing or standalone combustion.",
     specs: { size: "variable", moisture: "< 8%", ashContent: "< 1%", energyDensity: "4.9 kWh/kg" },
     image: "/products/cashew-nut-shell.png",
-    heroImage: "/products/cashew-nut-t.png"
+    heroImage: "/products/cashew-nut-t.png",
   },
   {
     id: 9,
@@ -96,7 +95,7 @@ export const products = [
     description: "Palm kernel shells — a widely used biomass fuel in tropical regions.",
     specs: { size: "variable", moisture: "< 10%", ashContent: "< 2%", energyDensity: "4.6 kWh/kg" },
     image: "/products/palm-kernel-shell.png",
-    heroImage: "/products/palm-kernel-t.png"
+    heroImage: "/products/palm-kernel-t.png",
   },
   {
     id: 10,
@@ -105,7 +104,7 @@ export const products = [
     description: "Finely crushed cashew shells ready for pelletizing or direct combustion.",
     specs: { size: "crushed", moisture: "< 8%", ashContent: "< 1%", energyDensity: "4.85 kWh/kg" },
     image: "/products/crushed-cashew-shells.png",
-    heroImage: "/products/crushed-cashew-t.png"
+    heroImage: "/products/crushed-cashew-t.png",
   },
   {
     id: 11,
@@ -114,7 +113,7 @@ export const products = [
     description: "Olive pits with high energy density used in various combustion systems.",
     specs: { size: "variable", moisture: "< 12%", ashContent: "< 2%", energyDensity: "4.4 kWh/kg" },
     image: "/products/olive-pits.png",
-    heroImage: "/products/oliv-pits-t.png"
+    heroImage: "/products/oliv-pits-t.png",
   },
   {
     id: 12,
@@ -123,22 +122,63 @@ export const products = [
     description: "Residual olive cake useful for energy and soil amendment applications.",
     specs: { size: "variable", moisture: "< 15%", ashContent: "< 3%", energyDensity: "3.8 kWh/kg" },
     image: "/products/olive-cake.png",
-    heroImage: "/products/olive-cake-t.png"
-  }
+    heroImage: "/products/olive-cake-t.png",
+  },
 ];
 
 export const offices = [
-  { id: 1, name: "London, UK", lat: 51.5074, lng: -0.1278, employees: 45 },
-  { id: 2, name: "Copenhagen, Denmark", lat: 55.6761, lng: 12.5683, employees: 38 },
-  { id: 3, name: "New York, USA", lat: 40.7128, lng: -74.0060, employees: 52 },
-  { id: 4, name: "Singapore", lat: 1.3521, lng: 103.8198, employees: 28 },
-  { id: 5, name: "Tokyo, Japan", lat: 35.6762, lng: 139.6503, employees: 34 },
-  { id: 6, name: "São Paulo, Brazil", lat: -23.5505, lng: -46.6333, employees: 29 },
-  { id: 7, name: "Sydney, Australia", lat: -33.8688, lng: 151.2093, employees: 31 },
-  { id: 8, name: "Vancouver, Canada", lat: 49.2827, lng: -123.1207, employees: 27 },
-  { id: 9, name: "Amsterdam, Netherlands", lat: 52.3676, lng: 4.9041, employees: 36 },
-  { id: 10, name: "Dubai, UAE", lat: 25.2048, lng: 55.2708, employees: 25 },
-  { id: 11, name: "Stockholm, Sweden", lat: 59.3293, lng: 18.0686, employees: 33 }
+  {
+    id: 1,
+    name: "Mulugu Office",
+    city: "Mulugu",
+    country: "India",
+    countryCode: "IN",
+    address: "123 Green Park Road, Mulugu, Telangana",
+    phone: "+91 98765 43210",
+    email: "mulugu@bioenergy.com",
+    lat: 17.520300279032448,
+    lng: 78.35290711967167,
+    employees: 45,
+  },
+  {
+    id: 2,
+    name: "Hyderabad Office",
+    city: "Hyderabad",
+    country: "India",
+    countryCode: "IN",
+    address: "45 Corporate Ave, Hyderabad, Telangana",
+    phone: "+91 91234 56789",
+    email: "hyderabad@bioenergy.com",
+    lat: 17.494393196108774,
+    lng: 78.35423748036713,
+    employees: 38,
+  },
+  {
+    id: 3,
+    name: "Amaravathi Office",
+    city: "Amaravathi",
+    country: "India",
+    countryCode: "IN",
+    address: "12 Riverfront Drive, Amaravathi",
+    phone: "+91 99887 77665",
+    email: "amaravathi@bioenergy.com",
+    lat: 16.573,
+    lng: 80.3573,
+    employees: 52,
+  },
+  {
+    id: 4,
+    name: "New York Office",
+    city: "New York",
+    country: "USA",
+    countryCode: "SG",
+    address: "1 Marina Boulevard, Singapore",
+    phone: "+65 6123 4567",
+    email: "singapore@bioenergy.com",
+    lat: 40.3176643125522,
+    lng: -75.62144171349125,
+    employees: 28,
+  },
 ];
 
 export const jobs = [
@@ -153,8 +193,8 @@ export const jobs = [
       "5+ years in commodity trading",
       "Strong market analysis skills",
       "Excellent negotiation abilities",
-      "Fluent in English and one European language"
-    ]
+      "Fluent in English and one European language",
+    ],
   },
   {
     id: 2,
@@ -167,8 +207,8 @@ export const jobs = [
       "Degree in Environmental Science or related field",
       "3+ years in sustainability role",
       "Knowledge of biomass certification standards",
-      "Project management experience"
-    ]
+      "Project management experience",
+    ],
   },
   {
     id: 3,
@@ -181,9 +221,9 @@ export const jobs = [
       "Experience in international logistics",
       "Familiarity with maritime shipping",
       "Strong organizational skills",
-      "Proficiency in logistics software"
-    ]
-  }
+      "Proficiency in logistics software",
+    ],
+  },
 ];
 
 export const certificates = [
@@ -191,26 +231,26 @@ export const certificates = [
     id: 1,
     name: "FSC Certification",
     description: "Forest Stewardship Council - Responsible Forest Management",
-    image: "/placeholder-cert.jpg"
+    image: "/placeholder-cert.jpg",
   },
   {
     id: 2,
     name: "PEFC Certification",
     description: "Programme for the Endorsement of Forest Certification",
-    image: "/placeholder-cert.jpg"
+    image: "/placeholder-cert.jpg",
   },
   {
     id: 3,
     name: "SBP Certification",
     description: "Sustainable Biomass Program - Ensuring biomass sustainability",
-    image: "/placeholder-cert.jpg"
+    image: "/placeholder-cert.jpg",
   },
   {
     id: 4,
     name: "ISO 14001",
     description: "Environmental Management System Standard",
-    image: "/placeholder-cert.jpg"
-  }
+    image: "/placeholder-cert.jpg",
+  },
 ];
 
 export const teamMembers = [
@@ -219,34 +259,34 @@ export const teamMembers = [
     name: "Sarah Anderson",
     position: "Chief Executive Officer",
     bio: "With over 20 years in renewable energy, Sarah leads our vision for sustainable biomass solutions.",
-    image: "/placeholder-team.jpg"
+    image: "/placeholder-team.jpg",
   },
   {
     id: 2,
     name: "Michael Chen",
     position: "Chief Trading Officer",
     bio: "Michael brings extensive commodity trading experience to drive our global market presence.",
-    image: "/placeholder-team.jpg"
+    image: "/placeholder-team.jpg",
   },
   {
     id: 3,
     name: "Emma Rodriguez",
     position: "Head of Sustainability",
     bio: "Emma ensures our operations meet the highest environmental and social standards.",
-    image: "/placeholder-team.jpg"
+    image: "/placeholder-team.jpg",
   },
   {
     id: 4,
     name: "James O'Connor",
     position: "VP of Operations",
     bio: "James oversees our global logistics network and production facilities.",
-    image: "/placeholder-team.jpg"
-  }
+    image: "/placeholder-team.jpg",
+  },
 ];
 
 export const stats = {
   tonnesDelivered: 2500000,
   offices: 11,
   employees: 378,
-  countries: 45
+  countries: 45,
 };
